@@ -1,0 +1,37 @@
+nav.navbar {
+  margin-bottom: 20px;
+
+  .menus {
+    a {
+      padding: 20px 10px;
+      color: #EEE;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    a:hover {
+      background: #EEE;
+      color: $primaryColor;
+      transition: color .20s ease-in-out,
+      background-color .20s ease-in-out,
+      border-color .20s ease-in-out,
+      box-shadow .20s ease-in-out;
+    }
+    a:active {
+      background: none;
+      color: #EEE;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  nav.navbar {
+    .menus {
+      display: none;
+    }
+    .navbar-brand {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}

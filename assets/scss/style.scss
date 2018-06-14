@@ -1,0 +1,17 @@
+@import "./colors.scss";
+
+body {
+  padding: 0;
+  margin: 0;
+
+  font-family: 'Roboto'
+}
+
+::selection {
+  color: #EEE;
+  background: $primaryColor;
+}
+
+@import "./navbar.scss";
+@import "./footer.scss";
+@import './burger-menu.scss';

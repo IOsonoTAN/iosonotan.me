@@ -1,0 +1,22 @@
+footer {
+  background: #FAF9F9;
+  padding: 50px 0;
+  ul.menus {
+    padding: 0 !important;
+    list-style: none;
+
+    li {
+      display: block;
+
+      a {
+        color: $primaryColor
+      }
+    }
+
+    li.divider {
+      height: 9px !important;
+      border-bottom: 2px dashed #DDD !important;
+      margin-bottom: 9px;
+    }
+  }
+}

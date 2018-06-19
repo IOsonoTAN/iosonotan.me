@@ -1,21 +1,21 @@
 import { Link } from '../routes'
+import Navigator from '../components/navigator'
 
 const Footer = (props) => {
   return (
     <footer className="container-fluid">
       <div className="container">
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-md-4 order-2 order-md-1">
             <h4>Quick links</h4>
+            <Navigator />
             <ul className="menus">
-              <li><Link route='/'><a>Homepage</a></Link></li>
-              <li><Link route='/blog'><a>Blog</a></Link></li>
-              <li><Link route='/contact-me'><a>Contact Me</a></Link></li>
               <li className="divider"></li>
-              <li><a href="https://traova.com" target="_blank">Traova Co., Ltd.</a></li>
+              <li><Link route='/resume'><a>resume</a></Link></li>
+              <li><Link route='/sign-in'><a>back office sign-in</a></Link></li>
             </ul>
           </div>
-          <div className="col-md-9">
+          <div className="col-md-8 order-1 order-md-2">
             <h4>Reach me</h4>
             <ul className="menus">
               <li><a href="https://github.com/IOsonoTAN" target="_blank">Github</a></li>
@@ -23,6 +23,7 @@ const Footer = (props) => {
               <li><a href="https://twitter.com/IOsonoTAN" target="_blank">Twitter</a></li>
               <li><a href="https://instagram.com/IOsonoTAN" target="_blank">Instagram</a></li>
               <li><a href="https://linkedin.com/in/krissada-boontrigratn" target="_blank">LinkedIn</a></li>
+              <li><a href="https://www.youtube.com/channel/UCMQryl1CZjxDFz451-Ra78g" target="_blank">Youtube Channel</a></li>
               <li><a href="https://shutterstock.com/g/iosonotan" target="_blank">Shutter Stock</a></li>
             </ul>
           </div>

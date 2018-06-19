@@ -1,6 +1,13 @@
 import Main from '../layouts/main'
 
 export default class ContactMe extends React.Component {
+  static async getInitialProps() {
+    await new Promise((resolve) => {
+      setTimeout(resolve, 3000)
+    })
+    return {}
+  }
+
   render () {
     const title = 'Contact me'
 

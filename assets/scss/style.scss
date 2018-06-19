@@ -2,9 +2,13 @@
 
 body {
   padding: 0;
-  margin: 0;
+  margin: 70px 0 0 0 !important;
 
-  font-family: 'Roboto'
+  font-family: 'Roboto' !important
+}
+
+body.lock {
+  overflow: hidden;
 }
 
 ::selection {
@@ -12,6 +16,9 @@ body {
   background: $primaryColor;
 }
 
+@import "./utility.scss";
+@import "./loading.scss";
 @import "./navbar.scss";
 @import "./footer.scss";
+@import './sidebar-menu.scss';
 @import './burger-menu.scss';

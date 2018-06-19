@@ -1,0 +1,38 @@
+$background: 'https://media3.giphy.com/media/l3q2vQ6rlZutXsYN2/giphy.gif';
+
+@font-face {
+  font-family: 'BebasNeue';
+  src: url('/static/font/BebasNeue-Regular.ttf');
+}
+
+#loading-text {
+  display: flex;
+  font-family: 'BebasNeue';
+  text-align: center;
+  color: #FFF;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  letter-spacing: 1px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(255, 255, 255, .5);
+  z-index: 999999;
+  visibility: hidden;
+
+  h1 {
+    background-image: url(#{$background});
+    background-size: cover;
+    color: transparent;
+    -moz-background-clip: text;
+    -webkit-background-clip: text;
+    text-transform: uppercase;
+    font-size: 120px;
+    line-height: 1;
+    top: 130px;
+    position: absolute;
+  }
+}

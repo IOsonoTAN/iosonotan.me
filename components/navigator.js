@@ -2,11 +2,11 @@ import { Link } from '../routes'
 
 const Navigator = () => {
   return (
-    <div className="menus">
-      <Link route='/blog'><a>blog</a></Link>
-      <Link route='/resume'><a>resume</a></Link>
-      <Link route='/contact-me'><a>contact me</a></Link>
-    </div>
+    <ul className="menus">
+      <li><Link route='/about-me'><a>about me</a></Link></li>
+      <li><Link route='/blog'><a>blog</a></Link></li>
+      <li><Link route='/contact-me'><a>contact me</a></Link></li>
+    </ul>
   )
 }
 

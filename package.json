@@ -16,6 +16,8 @@
     "@material-ui/icons": "^1.1.0",
     "@zeit/next-sass": "^0.2.0",
     "axios": "^0.18.0",
+    "babel-plugin-inline-dotenv": "^1.1.2",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "express": "^4.16.3",
     "next": "^6.0.3",
     "next-routes": "^1.4.2",
@@ -23,6 +25,7 @@
     "nprogress": "^0.2.0",
     "react": "^16.4.0",
     "react-burger-menu": "^2.5.2",
-    "react-dom": "^16.4.0"
+    "react-dom": "^16.4.0",
+    "timeago.js": "^3.0.2"
   }
 }

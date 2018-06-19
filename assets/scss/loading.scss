@@ -1,4 +1,5 @@
 $background: 'https://media3.giphy.com/media/l3q2vQ6rlZutXsYN2/giphy.gif';
+// $background: '/static/img/loading_animate.gif';
 
 @font-face {
   font-family: 'BebasNeue';
@@ -19,20 +20,21 @@ $background: 'https://media3.giphy.com/media/l3q2vQ6rlZutXsYN2/giphy.gif';
   position: absolute;
   left: 0;
   top: 0;
-  background: rgba(255, 255, 255, .5);
-  z-index: 999999;
+  background: rgba(0, 0, 0, .5);
+  z-index: 9999;
   visibility: hidden;
 
   h1 {
     background-image: url(#{$background});
     background-size: cover;
+    background-position: center left;
     color: transparent;
     -moz-background-clip: text;
     -webkit-background-clip: text;
     text-transform: uppercase;
     font-size: 120px;
     line-height: 1;
-    top: 130px;
-    position: absolute;
+    // top: 130px;
+    // position: absolute;
   }
 }

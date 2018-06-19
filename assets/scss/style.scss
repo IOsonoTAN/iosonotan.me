@@ -2,7 +2,7 @@
 
 body {
   padding: 0;
-  margin: 70px 0 0 0 !important;
+  margin: 0;
 
   font-family: 'Roboto' !important
 }
@@ -22,3 +22,4 @@ body.lock {
 @import "./footer.scss";
 @import './sidebar-menu.scss';
 @import './burger-menu.scss';
+@import './blog.scss';

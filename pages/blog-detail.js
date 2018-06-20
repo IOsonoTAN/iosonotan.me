@@ -5,10 +5,11 @@ import timeago from 'timeago.js'
 
 export default class BlogDetail extends React.Component {
   static async getInitialProps(props) {
+    const { BACKEND_URL } = process.env
     const { query } = props
     const { objectId } = query
 
-    const response = await axios.get(`http://localhost:4000/blog/${objectId}`)
+    const response = await axios.get(`${BACKEND_URL}/blog/${objectId}`)
     const content = response.data
 
     return { query, content }

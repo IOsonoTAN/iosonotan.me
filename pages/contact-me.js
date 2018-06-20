@@ -13,7 +13,7 @@ export default class ContactMe extends React.Component {
 
     return (
       <Main title={title}>
-        <div className="container">
+        <div className="container margin-top-20">
           <h1>Contact form</h1>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta enim eaque quos distinctio odio magni explicabo odit at? Ut magnam numquam optio architecto impedit neque error eos sunt illum tempore?</p>
         </div>

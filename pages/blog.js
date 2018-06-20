@@ -1,20 +1,22 @@
+import axios from 'axios'
 import { Link } from '../routes'
 import Main from '../layouts/main'
 import ErrorPage from '../layouts/error'
-import axios from 'axios'
 import Paginate from '../components/paginate'
+import { axiosResponseError } from '../lib/handle-error'
 export default class Blog extends React.Component {
   static async getInitialProps (props) {
+    const { BACKEND_URL } = process.env
     const { query } = props
     const page = query.page || 1
 
     try {
-      const response = await axios.get(`http://localhost:4000/blog?page=${page}`)
+      const response = await axios.get(`${BACKEND_URL}/blog?page=${page}`)
       const contents = response.data
 
       return { query, page, contents }
     } catch (err) {
-      return { err: err.response.data.error }
+      return axiosResponseError(err)
     }
   }
 

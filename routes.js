@@ -2,7 +2,9 @@ const routes = module.exports = require('next-routes')()
 
 routes
   .add('about')
-  .add('blog', '/blog')
-  .add('blog-detail', '/blog/:objectId', 'blog-detail')
-  .add('contact-me', '/contact-me', 'contact-me')
-  .add('resume', '/resume', 'resume')
+  .add('blog')
+  .add('/blog/category/:category', 'blog')
+  .add('/blog/tag/:tag', 'blog')
+  .add('/blog/:objectId', 'blog-detail')
+  .add('contact-me')
+  .add('resume')

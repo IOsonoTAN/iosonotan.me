@@ -1,7 +1,17 @@
+import axios from 'axios'
+import Router from 'next/router'
+import { connect } from 'react-redux'
 import Main from '../layouts/main'
 import isLoading from '../lib/loading'
+import { loginSuccess, setUserProfile } from '../store'
 
-export default class Resume extends React.Component {
+const redirectUrl = '/cms/blog'
+
+class SignIn extends React.Component {
+  static async getInitialProps ({ reduxStore }) {
+    return {}
+  }
+
   constructor (props) {
     super(props)
 
@@ -11,6 +21,14 @@ export default class Resume extends React.Component {
       password: '',
       resultMessage: '',
       resultClasses: ''
+    }
+  }
+
+  componentDidMount = async () => {
+    await this.props.dispatch(setUserProfile())
+
+    if (this.props.user) {
+      Router.push(redirectUrl)
     }
   }
 
@@ -24,21 +42,33 @@ export default class Resume extends React.Component {
     })
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault()
     isLoading(true)
-
+    const { BACKEND_URL } = process.env
     const { username, password } = this.state
 
-    setTimeout(() => {
+    try {
+      const response = await axios.post(`${BACKEND_URL}/sign-in`, {
+        username,
+        password
+      })
+
+      this.props.dispatch(loginSuccess(response.data))
+
+      Router.push(redirectUrl)
+
       isLoading(false)
-    }, 3000)
+    } catch ({ response }) {
+      const { code, message } = response.data.error
 
+      this.setState({
+        resultMessage: `${message} (${code})`,
+        resultClasses: 'alert alert-danger'
+      })
 
-    // // const item = localStorage.getItem('test')
-    // // console.log('item ->', item)
-
-    // localStorage.setItem('test', `${username}, ${password}`)
+      isLoading(false)
+    }
   }
 
   render () {
@@ -49,28 +79,22 @@ export default class Resume extends React.Component {
         <div className="container margin-top-20">
           <h1>{title}</h1>
           <hr />
-          <div className="row">
-            <form className="formLogin col-md-8 order-2 order-md-1" onSubmit={this.handleSubmit}>
-              <div className="form-group row">
-                <label htmlFor="username" className="col-md-2 col-form-label">Username</label>
-                <div className="col-md-8">
-                  <input type="text" className="form-control" id="username" tabIndex="1" autoFocus placeholder="email or username is greater or equal than 4 digits" onChange={this.handleChange} value={this.state.username} />
-                </div>
-              </div>
-              <div className="form-group row">
-                <label htmlFor="password" className="col-md-2 col-form-label">Password</label>
-                <div className="col-md-8">
-                  <input type="password" className="form-control" id="password" tabIndex="2" placeholder="password is greater or equal than 4 digits" onChange={this.handleChange} value={this.state.password} />
-                </div>
-              </div>
-              <button type="submit" className="btn btn-primary mb-2 offset-md-2" disabled={!this.validateForm()} >Sign in</button>
-            </form>
-            <div className="col-md-4 order-1 order-md-2 request-result">
-              <div className={this.state.resultClasses}>{this.state.resultMessage}</div>
+          <div className={this.state.resultClasses}>{this.state.resultMessage}</div>
+          <form className="formLogin" onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="username" className="col-form-label">Username</label>
+              <input type="text" className="form-control" id="username" tabIndex="1" autoFocus placeholder="email or username is greater or equal than 4 digits" onChange={this.handleChange} value={this.state.username} />
             </div>
-          </div>
+            <div className="form-group">
+              <label htmlFor="password" className="col-form-label">Password</label>
+              <input type="password" className="form-control" id="password" tabIndex="2" placeholder="password is greater or equal than 4 digits" onChange={this.handleChange} value={this.state.password} />
+            </div>
+            <button type="submit" className="btn btn-primary" disabled={!this.validateForm()} >Submit</button>
+          </form>
         </div>
       </Main>
     )
   }
 }
+
+export default connect(state => state)(SignIn)

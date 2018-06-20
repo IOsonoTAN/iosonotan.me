@@ -16,6 +16,20 @@ app.prepare()
     app.render(req, res, actualPage, queryParams)
   })
 
+  server.get('/blog/category/:category', (req, res) => {
+    const actualPage = '/blog'
+    const queryParams = { category: req.params.category }
+
+    app.render(req, res, actualPage, queryParams)
+  })
+
+  server.get('/blog/tag/:tag', (req, res) => {
+    const actualPage = '/blog'
+    const queryParams = { tag: req.params.tag }
+
+    app.render(req, res, actualPage, queryParams)
+  })
+
   server.get('*', (req, res) => {
     return handle(req, res)
   })

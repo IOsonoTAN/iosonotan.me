@@ -37,6 +37,10 @@
     }
   }
 
+  .post-detail {
+    font-size: .9em;
+  }
+
   .tag {
     a {
       text-decoration: none;
@@ -59,6 +63,9 @@
     .feature-picture {
       min-height: 140px;
     }
+    .post-detail {
+      font-size: .7em;
+    }
   }
 }
 
@@ -66,6 +73,9 @@
   #blog-detail {
     .feature-picture {
       min-height: 210px;
+    }
+    .post-detail {
+      font-size: .8em;
     }
   }
 }

@@ -39,12 +39,17 @@
 
   .tag {
     a {
-      border-radius: 3px;
-      background: #DDD;
+      text-decoration: none;
+      border-radius: 2px;
+      background: #F2F1F1;
       padding: 5px 10px;
       margin-right: 5px;
-      color: #333;
-      font-size: .7em;
+      color: #666;
+      font-size: .8em;
+
+      &:hover {
+        background: #DDD
+      }
     }
   }
 }

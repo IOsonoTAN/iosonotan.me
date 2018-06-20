@@ -15,15 +15,21 @@
           text-transform: uppercase;
           text-decoration: none;
           padding: 10px;
-          border-radius: 3px;
         }
         a:hover {
-          background: #EEE;
-          color: $primaryColor;
+          background: #376FBB;
+          color: #EEE;
           transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
         }
         a:active {
-          background: none;
+          background: #3578F6;
+          color: #EEE;
+        }
+      }
+
+      li.active {
+        a {
+          background: #3578F6;
           color: #EEE;
         }
       }

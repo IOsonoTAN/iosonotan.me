@@ -44,8 +44,8 @@ export default class BlogDetail extends React.Component {
             <div className="post-detail margin-top-20 margin-bottom-10">
               Content in <Link route={`/blog/tag/${category}`}><a>{category}</a></Link>, published by <Link route="/about-me"><a>{ user.displayName }</a></Link> at { timeago().format(createdAt) }
             </div>
-            <div className="tag margin-bottom-20">{ renderTags }</div>
             <div className="content" dangerouslySetInnerHTML={{ __html: detail }}></div>
+            <div className="tag margin-top-20">{ renderTags }</div>
           </div>
         </div>
       </Main>

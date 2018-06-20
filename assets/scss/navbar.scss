@@ -8,20 +8,27 @@ nav.navbar {
       display: inline;
 
       a {
-        padding: 20px 10px;
+        padding: 20px;
         color: #EEE;
         text-transform: uppercase;
         text-decoration: none;
       }
 
       a:hover {
-        background: #EEE;
-        color: $primaryColor;
+        background: #376FBB;
+        color: #EEE;
         transition: color .20s ease-in-out, background-color .20s ease-in-out, border-color .20s ease-in-out, box-shadow .20s ease-in-out;
       }
 
       a:active {
         background: none;
+        color: #EEE;
+      }
+    }
+
+    li.active {
+      a {
+        background: #3578F6;
         color: #EEE;
       }
     }

@@ -1,13 +1,54 @@
-import { Link } from '../routes'
+import { Link, Router } from '../routes'
+import React from 'react'
 
-const Navigator = () => {
-  return (
-    <ul className="menus">
-      <li><Link route='/about-me'><a>about me</a></Link></li>
-      <li><Link route='/blog'><a>blog</a></Link></li>
-      <li><Link route='/contact-me'><a>contact me</a></Link></li>
-    </ul>
-  )
+export default class Navigator extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      menus: [{
+        url: '/about-me',
+        label: 'about me',
+        isActive: false
+      }, {
+        url: '/blog',
+        label: 'blog',
+        isActive: false
+      }, {
+        url: '/contact-me',
+        label: 'contact me',
+        isActive: false
+      }]
+    }
+  }
+
+  componentDidMount() {
+    const menus = this.state.menus
+
+    menus.map((value, key) => {
+      const result = Router.route.match(new RegExp(value.url, 'g'))
+      if (result) {
+        value.isActive = true
+      }
+      return {
+        ...value
+      }
+    })
+
+    this.setState({
+      menus
+    })
+  }
+
+  render () {
+    const renderMenuItem = this.state.menus.map((menu, key) => {
+      return <li key={key} className={menu.isActive ? 'active' : ''}><Link route={menu.url}><a>{menu.label}</a></Link></li>
+    })
+
+    return (
+      <ul className="menus">
+        { renderMenuItem }
+      </ul>
+    )
+  }
 }
-
-export default Navigator

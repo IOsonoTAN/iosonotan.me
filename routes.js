@@ -8,3 +8,4 @@ routes
   .add('/blog/:objectId', 'blog-detail')
   .add('contact-me')
   .add('resume')
+  .add('cms')

@@ -27,8 +27,6 @@ export const reducer = (state = initialState, action) => {
 }
 
 export const loginSuccess = (user) => {
-  localStorage.setItem('userProfile', JSON.stringify(user))
-
   return {
     type: actionTypes.SET_USER_PROFILE,
     user
@@ -36,8 +34,6 @@ export const loginSuccess = (user) => {
 }
 
 export const setUserProfile = () => {
-  const userProfile = localStorage.getItem('userProfile')
-
   return {
     type: actionTypes.SET_USER_PROFILE,
     user: JSON.parse(userProfile)

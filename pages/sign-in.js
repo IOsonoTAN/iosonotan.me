@@ -5,7 +5,7 @@ import Main from '../layouts/main'
 import isLoading from '../lib/loading'
 import { loginSuccess, setUserProfile } from '../store'
 
-const redirectUrl = '/cms/blog'
+const redirectUrl = '/cms'
 
 class SignIn extends React.Component {
   static async getInitialProps ({ reduxStore }) {
@@ -21,14 +21,6 @@ class SignIn extends React.Component {
       password: '',
       resultMessage: '',
       resultClasses: ''
-    }
-  }
-
-  componentDidMount = async () => {
-    await this.props.dispatch(setUserProfile())
-
-    if (this.props.user) {
-      Router.push(redirectUrl)
     }
   }
 
@@ -48,6 +40,9 @@ class SignIn extends React.Component {
     const { BACKEND_URL } = process.env
     const { username, password } = this.state
 
+    /**
+     * @TODO implement redux-persist
+     */
     try {
       const response = await axios.post(`${BACKEND_URL}/sign-in`, {
         username,

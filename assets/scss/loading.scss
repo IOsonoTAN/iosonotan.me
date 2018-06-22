@@ -20,9 +20,14 @@ $background: 'https://media3.giphy.com/media/l3q2vQ6rlZutXsYN2/giphy.gif';
   position: absolute;
   left: 0;
   top: 0;
-  background: rgba(0, 0, 0, .5);
+  background: rgba($color: #343a40, $alpha: 0.5);
   z-index: 9999;
   visibility: hidden;
+
+  &.visible {
+    visibility: visible;
+    background: #343a40 !important;
+  }
 
   h1 {
     background-image: url(#{$background});
@@ -34,7 +39,5 @@ $background: 'https://media3.giphy.com/media/l3q2vQ6rlZutXsYN2/giphy.gif';
     text-transform: uppercase;
     font-size: 120px;
     line-height: 1;
-    // top: 130px;
-    // position: absolute;
   }
 }

@@ -33,10 +33,10 @@ export const loginSuccess = (user) => {
   }
 }
 
-export const setUserProfile = () => {
+export const setUserProfile = (user) => {
   return {
     type: actionTypes.SET_USER_PROFILE,
-    user: JSON.parse(userProfile)
+    user: JSON.parse(user)
   }
 }
 

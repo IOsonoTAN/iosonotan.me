@@ -1,3 +1,4 @@
+import React from 'react'
 import Main from '../layouts/main'
 
 export default class Resume extends React.Component {

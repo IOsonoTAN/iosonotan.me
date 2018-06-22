@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from '../routes'
 
 export default class Paginate extends React.Component {

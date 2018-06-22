@@ -1,9 +1,10 @@
+import React from 'react'
 import axios from 'axios'
 import Router from 'next/router'
 import { connect } from 'react-redux'
 import Main from '../layouts/main'
 import isLoading from '../lib/loading'
-import { loginSuccess, setUserProfile } from '../store'
+import { loginSuccess } from '../store'
 
 const redirectUrl = '/cms'
 

@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from '../routes'
 import Navigator from '../components/navigator'
 

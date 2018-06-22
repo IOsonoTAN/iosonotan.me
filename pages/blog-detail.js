@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from '../routes'
 import Main from '../layouts/main'
 import axios from 'axios'
@@ -17,7 +18,6 @@ export default class BlogDetail extends React.Component {
 
   render () {
     const { title, user, featurePicture, detail, createdAt, tag, category } = this.props.content
-    const { displayName } = user
 
     const renderFeaturePicture = (!featurePicture ? 
       <div className="container margin-top-20">

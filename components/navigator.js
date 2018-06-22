@@ -1,5 +1,5 @@
-import { Link, Router } from '../routes'
 import React from 'react'
+import { Link, Router } from '../routes'
 
 export default class Navigator extends React.Component {
   constructor(props) {

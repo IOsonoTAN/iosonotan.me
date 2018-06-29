@@ -41,9 +41,6 @@ class SignIn extends React.Component {
     const { BACKEND_URL } = process.env
     const { username, password } = this.state
 
-    /**
-     * @TODO implement redux-persist
-     */
     try {
       const response = await axios.post(`${BACKEND_URL}/sign-in`, {
         username,

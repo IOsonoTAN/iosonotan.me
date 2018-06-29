@@ -1,9 +1,21 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import Router from 'next/router'
 import Main from '../layouts/main'
 
-export default class CMSMain extends React.Component {
-  static async getInitialProps({ reduxStore }) {
-    return {}
+class CMSMain extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      isLoading: false
+    }
+  }
+
+  componentDidMount = () => {
+    if (!this.props.user) {
+      Router.push('/sign-in?redirect=/cms')
+    }
   }
 
   render () {
@@ -19,3 +31,5 @@ export default class CMSMain extends React.Component {
     )
   }
 }
+
+export default connect(state => state)(CMSMain)

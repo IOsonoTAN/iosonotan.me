@@ -51,8 +51,10 @@ const persistedReducer = persistReducer(persistConfig, reducer)
 
 export function initializeStore(initialState = initialState) {
   const store = createStore(persistedReducer, {}, composeWithDevTools(applyMiddleware(thunkMiddleware, logger)))
+  const persistor = persistStore(store)
 
-  persistStore(store)
-
-  return store
+  return {
+    store,
+    persistor
+  }
 }

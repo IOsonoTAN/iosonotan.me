@@ -1,5 +1,7 @@
 import logger from 'redux-logger'
 import { createStore, applyMiddleware } from 'redux'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunkMiddleware from 'redux-thunk'
 
@@ -33,15 +35,24 @@ export const loginSuccess = (user) => {
   }
 }
 
-export const setUserProfile = (user) => {
+export const logout = () => {
   return {
     type: actionTypes.SET_USER_PROFILE,
-    user: JSON.parse(user)
+    user: initialState.user
   }
 }
 
+const persistConfig = {
+  key: 'root',
+  storage
+}
+
+const persistedReducer = persistReducer(persistConfig, reducer)
+
 export function initializeStore(initialState = initialState) {
-  const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware, logger)))
+  const store = createStore(persistedReducer, {}, composeWithDevTools(applyMiddleware(thunkMiddleware, logger)))
+
+  persistStore(store)
 
   return store
 }

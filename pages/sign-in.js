@@ -6,11 +6,9 @@ import Main from '../layouts/main'
 import isLoading from '../lib/loading'
 import { loginSuccess } from '../store'
 
-const redirectUrl = '/cms'
-
 class SignIn extends React.Component {
-  static async getInitialProps ({ reduxStore }) {
-    return {}
+  static async getInitialProps({ query }) {
+    return { query }
   }
 
   constructor (props) {
@@ -40,6 +38,7 @@ class SignIn extends React.Component {
     isLoading(true)
     const { BACKEND_URL } = process.env
     const { username, password } = this.state
+    const { query } = this.props
 
     try {
       const response = await axios.post(`${BACKEND_URL}/sign-in`, {
@@ -49,7 +48,7 @@ class SignIn extends React.Component {
 
       this.props.dispatch(loginSuccess(response.data))
 
-      Router.push(redirectUrl)
+      Router.push(query.redirect || '/cms')
 
       isLoading(false)
     } catch ({ response }) {

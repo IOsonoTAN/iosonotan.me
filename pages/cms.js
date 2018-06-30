@@ -1,31 +1,71 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Router from 'next/router'
+import axios from 'axios'
 import Main from '../layouts/main'
+import Paginate from '../components/paginate'
+import { Link } from '../routes'
+import { isLoggedIn } from '../lib/auth'
 
 class CMSMain extends React.Component {
-  constructor(props) {
+  static async getInitialProps ({ asPath, query, reduxStore }) {
+    const page = parseInt(query.page, 10) || 1
+    const { BACKEND_URL } = process.env
+
+    const { data: contents } = await axios.get(`${BACKEND_URL}/blog?page=${page}`)
+
+    return { asPath, page, contents }
+  }
+
+  constructor (props) {
     super(props)
 
     this.state = {
-      isLoading: false
+      title: 'Content Management System'
     }
   }
 
-  componentDidMount = () => {
-    if (!this.props.user) {
-      Router.push('/sign-in?redirect=/cms')
-    }
+  componentDidMount = async () => {
+    isLoggedIn(this.props)
   }
 
   render () {
-    const title = 'CMS'
+    const { contents } = this.props
+
+    const tableContents = contents.docs.map((content, index) => {
+      return <tr key={index}>
+        <td>{content.title}</td>
+        <td>{content.category}</td>
+        <td>{content.tag.join(', ')}</td>
+        <td>{content.status}</td>
+        <td align="right">
+          <ul className="control-menus">
+            <li><Link route={`/cms/edit/${content._id}`}><a className="btn btn-primary btn-sm"><i className="fas fa-edit"></i> Edit</a></Link></li>
+            <li><Link route={`/cms/remove/${content._id}`}><a className="btn btn-link btn-sm"><i className="fas fa-trash"></i> Delete</a></Link></li>
+          </ul>
+        </td>
+      </tr>
+    })
 
     return (
-      <Main title={title}>
+      <Main title={this.state.title}>
         <div className="container margin-top-20">
-          <h1>CMS Main</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta enim eaque quos distinctio odio magni explicabo odit at? Ut magnam numquam optio architecto impedit neque error eos sunt illum tempore?</p>
+          <h1>All Contents</h1>
+          <Paginate url={'cms'} page={contents.page} pages={contents.pages} />
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Category</th>
+                <th scope="col">Tags</th>
+                <th scope="col" colSpan={2}>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tableContents}
+            </tbody>
+          </table>
+          <hr/>
+          <Paginate url={'cms'} page={contents.page} pages={contents.pages} />
         </div>
       </Main>
     )

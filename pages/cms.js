@@ -9,27 +9,39 @@ import { isLoggedIn } from '../lib/auth'
 class CMSMain extends React.Component {
   static async getInitialProps ({ asPath, query, reduxStore }) {
     const page = parseInt(query.page, 10) || 1
-    const { BACKEND_URL } = process.env
 
-    const { data: contents } = await axios.get(`${BACKEND_URL}/blog?page=${page}`)
-
-    return { asPath, page, contents }
+    return { asPath, page }
   }
 
   constructor (props) {
     super(props)
 
     this.state = {
-      title: 'Content Management System'
+      title: 'Content Management System',
+      contents: {
+        docs: [],
+        page: 1,
+        pages: 1
+      }
     }
+  }
+
+  getContens = async (page = 1) => {
+    const { BACKEND_URL } = process.env
+    const { data: contents } = await axios.get(`${BACKEND_URL}/blog?page=${page}`)
+
+    this.setState({
+      contents
+    })
   }
 
   componentDidMount = async () => {
     isLoggedIn(this.props)
+    this.getContens(this.props.page)
   }
 
   render () {
-    const { contents } = this.props
+    const { contents } = this.state
 
     const tableContents = contents.docs.map((content, index) => {
       return <tr key={index}>
@@ -39,7 +51,7 @@ class CMSMain extends React.Component {
         <td>{content.status}</td>
         <td align="right">
           <ul className="control-menus">
-            <li><Link route={`/cms/edit/${content._id}`}><a className="btn btn-primary btn-sm"><i className="fas fa-edit"></i> Edit</a></Link></li>
+            <li><Link route={`/cms/${content._id}/edit`}><a className="btn btn-primary btn-sm"><i className="fas fa-edit"></i> Edit</a></Link></li>
             <li><Link route={`/cms/remove/${content._id}`}><a className="btn btn-link btn-sm"><i className="fas fa-trash"></i> Delete</a></Link></li>
           </ul>
         </td>
@@ -50,7 +62,7 @@ class CMSMain extends React.Component {
       <Main title={this.state.title}>
         <div className="container margin-top-20">
           <h1>All Contents</h1>
-          <Paginate url={'cms'} page={contents.page} pages={contents.pages} />
+          <Paginate url={'cms'} page={contents.page} pages={contents.pages} onClickAction={this.getContens} />
           <table className="table table-hover">
             <thead>
               <tr>

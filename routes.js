@@ -9,3 +9,4 @@ routes
   .add('contact-me')
   .add('resume')
   .add('cms')
+  .add('/cms/:objectId/edit', 'cms-edit')

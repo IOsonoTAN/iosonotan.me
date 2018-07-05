@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import Main from '../layouts/main'
-import Paginate from '../components/paginate'
+import Paginate from '../components/Paginate'
 import { Link } from '../routes'
 import { isLoggedIn } from '../lib/auth'
 
@@ -77,7 +77,7 @@ class CMSMain extends React.Component {
             </tbody>
           </table>
           <hr/>
-          <Paginate url={'cms'} page={contents.page} pages={contents.pages} />
+          <Paginate url={'cms'} page={contents.page} pages={contents.pages} onClickAction={this.getContens} />
         </div>
       </Main>
     )

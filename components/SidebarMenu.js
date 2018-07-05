@@ -1,6 +1,6 @@
 import React from 'react'
 import { push as Menu } from 'react-burger-menu'
-import Navigator from './navigator'
+import Navigator from './Navigator'
 
 const SidebarMenu = () => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from '../routes'
-import Navigator from '../components/navigator'
+import Navigator from '../components/Navigator'
 
 const Footer = (props) => {
   return (

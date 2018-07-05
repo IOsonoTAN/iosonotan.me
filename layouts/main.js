@@ -1,10 +1,10 @@
 import React from 'react'
 import Router from 'next/router'
-import Header from '../components/header'
-import Footer from '../components/footer'
-import SidebarMenu from '../components/sidebar-menu'
-import Loading from '../components/loading'
-import isLoading from '../lib/loading'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import SidebarMenu from '../components/SidebarMenu'
+import Loading from '../components/Loading'
+import isLoading from '../components/isLoading'
 
 import "../assets/scss/style.scss"
 

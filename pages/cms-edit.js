@@ -3,6 +3,7 @@ import axios from 'axios'
 import TagsInput from 'react-tagsinput'
 import { Link } from '../routes'
 import Main from '../layouts/main'
+import TextEditor from '../components/TextEditor'
 
 export default class CmsEdit extends React.Component {
   static async getInitialProps ({ query }) {
@@ -34,6 +35,15 @@ export default class CmsEdit extends React.Component {
       content: {
         ...this.state.content,
         tag
+      }
+    })
+  }
+
+  handleDetail = (detail) => {
+    this.setState({
+      content: {
+        ...this.state.content,
+        detail
       }
     })
   }
@@ -76,11 +86,10 @@ export default class CmsEdit extends React.Component {
             </div>
             <div className="row">
               <div className="form-group col-md-12">
-                <label htmlFor="detail">detail</label>
-                <textarea className="form-control" id="detail" rows="8" defaultValue={content.detail}></textarea>
+                <label htmlFor="detail">Detail</label>
+                <TextEditor detail={content.detail} handleDetail={this.handleDetail} />
               </div>
             </div>
-            {}
           </form>
         </div>
       </Main>

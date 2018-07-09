@@ -4,6 +4,8 @@ import TagsInput from 'react-tagsinput'
 import { Link } from '../routes'
 import Main from '../layouts/main'
 import TextEditor from '../components/TextEditor'
+import TextGroup from '../components/TextGroup'
+import SelectGroup from '../components/SelectGroup'
 
 export default class CmsEdit extends React.Component {
   static async getInitialProps ({ query }) {
@@ -17,7 +19,23 @@ export default class CmsEdit extends React.Component {
     super(props)
 
     this.state = {
-      content: props.content
+      content: props.content,
+      categoryOptions: [{
+        value: 'uncategory',
+        label: 'Uncategory'
+      }, {
+        value: 'bnk48',
+        label: 'BNK48'
+      }, {
+        value: 'technology',
+        label: 'Technology'
+      }, {
+        value: 'travel',
+        label: 'Travel'
+      }, {
+        value: 'life-style',
+        label: 'Life Style'
+      }]
     }
   }
 
@@ -64,20 +82,22 @@ export default class CmsEdit extends React.Component {
           <h1>{content.title}</h1>
           <form>
             <div className="row">
-              <div className="form-group col-md-7">
-                <label htmlFor="title">Title</label>
-                <input type="text" className="form-control" name="title" placeholder="Title" value={content.title} onChange={this.handleInput} />
-              </div>
-              <div className="form-group col-md-5">
-                <label htmlFor="category">Category</label>
-                <select className="form-control" name="category" value={content.category} onChange={this.handleInput}>
-                  <option value="uncategory">Uncategory</option>
-                  <option value="bnk48">BNK48</option>
-                  <option value="tech">Technology</option>
-                  <option value="travel">Travel</option>
-                  <option value="life-style">Life Style</option>
-                </select>
-              </div>
+              <TextGroup
+                name="title"
+                label="Content title"
+                placeholder="please enter title"
+                wrapperClasses="col-md-7"
+                handleChange={this.handleInput}
+                value={content.title}
+              />
+              <SelectGroup
+                name="category"
+                label="Content category"
+                wrapperClasses="col-md-5"
+                handleChange={this.handleInput}
+                value={content.category}
+                selectOptions={this.state.categoryOptions}
+              />
             </div>
             <div className="row">
               <div className="form-group col-md-12">

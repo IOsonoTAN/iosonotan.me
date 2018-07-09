@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Link } from '../routes'
 import Main from '../layouts/main'
 import ErrorPage from '../layouts/error'
-import Paginate from '../components/paginate'
+import Paginate from '../components/Paginate'
 import { axiosResponseError } from '../lib/handle-error'
 
 const generateCurrentUrl = ({ category, tag }) => {

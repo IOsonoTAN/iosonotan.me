@@ -4,7 +4,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import SidebarMenu from '../components/SidebarMenu'
 import Loading from '../components/Loading'
-import isLoading from '../components/isLoading'
+import isLoading from '../lib/loading'
 
 import "../assets/scss/style.scss"
 

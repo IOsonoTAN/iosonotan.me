@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import axios from 'axios'
 import TagsInput from 'react-tagsinput'
 import { Link } from '../routes'
@@ -6,13 +7,15 @@ import Main from '../layouts/main'
 import TextEditor from '../components/TextEditor'
 import TextGroup from '../components/TextGroup'
 import SelectGroup from '../components/SelectGroup'
+import { isLoggedIn } from '../lib/auth'
 
-export default class CmsEdit extends React.Component {
-  static async getInitialProps ({ query }) {
-    const { BACKEND_URL } = process.env
+const { BACKEND_URL } = process.env
+
+class ContentAddAndEdit extends React.Component {
+  static async getInitialProps({ query, asPath }) {
     const { data: content } = await axios.get(`${BACKEND_URL}/blog/${query.objectId}`)
 
-    return { content }
+    return { content, asPath }
   }
 
   constructor (props) {
@@ -37,6 +40,10 @@ export default class CmsEdit extends React.Component {
         label: 'Life Style'
       }]
     }
+  }
+
+  componentDidMount = async () => {
+    isLoggedIn(this.props)
   }
 
   handleInput = (e) => {
@@ -66,6 +73,23 @@ export default class CmsEdit extends React.Component {
     })
   }
 
+  submitForm = async (e) => {
+    e.preventDefault()
+    try {
+      const token = this.props.user.token
+      const { data: content } = await axios.put(`${BACKEND_URL}/blog`, {
+        ...this.state.content
+      }, {
+        headers: {
+          'access-token': token
+        }
+      })
+      console.log('content ->', content)
+    } catch (e) {
+      console.error('e ->', e)
+    }
+  }
+
   render () {
     const { content } = this.state
 
@@ -74,13 +98,13 @@ export default class CmsEdit extends React.Component {
         <div className="container margin-top-20">
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb">
-              <li className="breadcrumb-item"><Link route="/cms"><a href="/cms">All Content</a></Link></li>
+              <li className="breadcrumb-item"><Link route="/content"><a href="/content">All Content</a></Link></li>
               <li className="breadcrumb-item active" aria-current="page">{content.title}</li>
             </ol>
           </nav>
 
           <h1>{content.title}</h1>
-          <form>
+          <form onSubmit={ this.submitForm }>
             <div className="row">
               <TextGroup
                 name="title"
@@ -106,13 +130,15 @@ export default class CmsEdit extends React.Component {
             </div>
             <div className="row">
               <div className="form-group col-md-12">
-                <label htmlFor="detail">Detail</label>
                 <TextEditor detail={content.detail} handleDetail={this.handleDetail} />
               </div>
             </div>
+            <button type="submit" className="btn btn-primary">Update</button>
           </form>
         </div>
       </Main>
     )
   }
 }
+
+export default connect(state => state)(ContentAddAndEdit)

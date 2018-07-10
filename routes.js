@@ -8,5 +8,5 @@ routes
   .add('/blog/:objectId', 'blog-detail')
   .add('contact-me')
   .add('resume')
-  .add('cms')
-  .add('/cms/:objectId/edit', 'cms-edit')
+  .add('content')
+  .add('/content/:objectId/edit', 'content-edit')

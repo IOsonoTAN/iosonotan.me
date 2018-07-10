@@ -1,8 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Link } from '../routes'
-import Navigator from '../components/Navigator'
+import Navigator from './Navigator'
 
-const Footer = (props) => {
+const Footer = ({ user }) => {
+  const buttnSignInOrSignOut = (user && user.token ? <Link route='/sign-out'><a>Sign-out</a></Link> : <Link route='/sign-in'><a>back office sign-in</a></Link>)
+
   return (
     <footer className="container-fluid">
       <div className="container">
@@ -13,7 +16,7 @@ const Footer = (props) => {
             <ul className="menus">
               <li className="divider"></li>
               <li><Link route='/resume'><a>resume</a></Link></li>
-              <li><Link route='/sign-in'><a>back office sign-in</a></Link></li>
+              <li>{ buttnSignInOrSignOut }</li>
             </ul>
           </div>
           <div className="col-md-8 order-1 order-md-2">
@@ -34,4 +37,4 @@ const Footer = (props) => {
   )
 }
 
-export default Footer
+export default connect(state => state)(Footer)

@@ -1,7 +1,7 @@
 import React from 'react'
 import Main from '../layouts/main'
 
-export default class ContactMe extends React.Component {
+class ContactMe extends React.Component {
   static async getInitialProps() {
     await new Promise((resolve) => {
       setTimeout(resolve, 3000)
@@ -22,3 +22,5 @@ export default class ContactMe extends React.Component {
     )
   }
 }
+
+export default ContactMe

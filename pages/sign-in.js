@@ -48,7 +48,7 @@ class SignIn extends React.Component {
 
       this.props.dispatch(loginSuccess(response.data))
 
-      Router.push(query.redirect || '/cms')
+      Router.push(query.redirect || '/content')
 
       isLoading(false)
     } catch ({ response }) {

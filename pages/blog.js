@@ -17,7 +17,7 @@ const generateCurrentUrl = ({ category, tag }) => {
   return 'blog'
 }
 
-export default class Blog extends React.Component {
+class Blog extends React.Component {
   static async getInitialProps({ query }) {
     const { BACKEND_URL } = process.env
     const page = query.page || 1
@@ -90,7 +90,7 @@ export default class Blog extends React.Component {
             <img className="card-img-top" src={featurePicture} alt="feature picture" />
             <div className="card-body">
               <h5 className="card-title">{content.title}</h5>
-              <p className="card-text" dangerouslySetInnerHTML={{ __html: content.detail }}></p>
+              <div className="card-text" dangerouslySetInnerHTML={{ __html: content.detail }}></div>
               <Link route={`/blog/${content._id}`}><a className="btn btn-primary btn-block">See more</a></Link>
             </div>
           </div>
@@ -117,3 +117,5 @@ export default class Blog extends React.Component {
     )
   }
 }
+
+export default Blog

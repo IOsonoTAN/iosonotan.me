@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import Navigator from '../components/Navigator'
+import Navigator from './Navigator'
 import { Link } from '../routes'
 
 const Header = (props) => {

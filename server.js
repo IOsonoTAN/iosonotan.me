@@ -30,8 +30,8 @@ app.prepare()
     app.render(req, res, actualPage, queryParams)
   })
 
-  server.get('/cms/:objectId/edit', (req, res) => {
-    const actualPage = '/cms-edit'
+  server.get('/content/:objectId/edit', (req, res) => {
+    const actualPage = '/content-edit'
     const queryParams = { objectId: req.params.objectId }
 
     app.render(req, res, actualPage, queryParams)

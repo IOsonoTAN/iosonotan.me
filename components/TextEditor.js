@@ -1,44 +1,26 @@
 import React from 'react'
+import CKEditor from "react-ckeditor-component"
 
-class TextEditor extends React.Component {
-  constructor (props) {
-    super(props)
-
-    if (document) {
-      this.quill = require('react-quill')
-    }
-  }
-
-  render () {
-    const Quill = this.quill
-    const { detail, handleDetail } = this.props
-    const modules = {
-      toolbar: [
-        [{ 'header': [2, 3, 4, false] }],
-        [{ 'color': [] }, { 'background': [] }, 'bold', 'italic', 'underline'],
-        ['blockquote', { 'list': 'ordered' }, { 'list': 'bullet' }, { 'align': [] }, 'link', 'image'],
-        ['clean']
-      ]
-    }
-    const formats = [
-      'header',
-      'color', 'background', 'bold', 'italic', 'underline', 'strike', 'blockquote',
-      'list', 'bullet', 'indent', 'align',
-      'link', 'image'
-    ]
-    const textEditor = (detail, handleDetail) => {
-      if (Quill) {
-        return <Quill
-          onChange={ handleDetail }
-          value={ detail }
-          modules={ modules }
-          formats={ formats }
-        />
-      }
-      return null
-    }
-    return textEditor(detail, handleDetail)
-  }
+const TextEditor = ({ detail, handleDetail }) => {
+  return (
+    <CKEditor
+      activeClass = "textEditor"
+      content = { detail }
+      config = {{
+        toolbarGroups: [
+          { name: 'document', groups: ['mode', 'document', 'doctools'] },
+          { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+          { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'] },
+          { name: 'links' },
+          { name: 'insert' },
+          { name: 'tools' }
+        ]
+      }}
+      events = {{
+        change: handleDetail
+      }}
+    />
+  )
 }
 
 export default TextEditor

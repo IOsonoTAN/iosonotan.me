@@ -13,16 +13,25 @@ const { BACKEND_URL } = process.env
 
 class ContentAddAndEdit extends React.Component {
   static async getInitialProps({ query, asPath }) {
-    const { data: content } = await axios.get(`${BACKEND_URL}/blog/${query.objectId}`)
-
-    return { content, asPath }
+    if (query.objectId) {
+      const { data: content } = await axios.get(`${BACKEND_URL}/blog/${query.objectId}`)
+      return { content, asPath }
+    }
+    return { asPath }
   }
 
   constructor (props) {
     super(props)
 
+    const defaultContent = {
+      title: '',
+      detail: '',
+      tag: [],
+      category: 'uncategory'
+    }
+
     this.state = {
-      content: props.content,
+      content: (props.content ? props.content : defaultContent),
       categoryOptions: [{
         value: 'uncategory',
         label: 'Uncategory'
@@ -64,7 +73,9 @@ class ContentAddAndEdit extends React.Component {
     })
   }
 
-  handleDetail = (detail) => {
+  handleDetail = (e) => {
+    const detail = e.editor.getData()
+
     this.setState({
       content: {
         ...this.state.content,
@@ -85,8 +96,10 @@ class ContentAddAndEdit extends React.Component {
         }
       })
       console.log('content ->', content)
+      window.alert('Content has been updated.')
     } catch (e) {
       console.error('e ->', e)
+      window.alert('Something went wrong!')
     }
   }
 

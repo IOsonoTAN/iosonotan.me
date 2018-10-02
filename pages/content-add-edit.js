@@ -4,26 +4,26 @@ import axios from 'axios'
 import TagsInput from 'react-tagsinput'
 import { Link } from '../routes'
 import Main from '../layouts/main'
-import TextEditor from '../components/TextEditor'
-import TextGroup from '../components/TextGroup'
-import SelectGroup from '../components/SelectGroup'
 import { isLoggedIn } from '../lib/auth'
-
-const { BACKEND_URL } = process.env
+import { TextEditor, TextGroup, SelectGroup, CloudinaryFinder } from '../components'
+import config from '../config'
 
 class ContentAddAndEdit extends React.Component {
   static async getInitialProps({ query, asPath }) {
+    const isNew = (query.objectId === undefined)
     if (query.objectId) {
-      const { data: content } = await axios.get(`${BACKEND_URL}/blog/${query.objectId}`)
+      const { data: content } = await axios.get(`${config.backendUrl}/blog/${query.objectId}`)
       return { content, asPath }
     }
-    return { asPath }
+    return { asPath, isNew }
   }
 
   constructor (props) {
     super(props)
 
-    const defaultContent = {
+    const { isNew } = props
+    const initContent = {
+      isNew,
       title: '',
       detail: '',
       tag: [],
@@ -31,7 +31,7 @@ class ContentAddAndEdit extends React.Component {
     }
 
     this.state = {
-      content: (props.content ? props.content : defaultContent),
+      content: (props.content ? props.content : initContent),
       categoryOptions: [{
         value: 'uncategory',
         label: 'Uncategory'
@@ -86,25 +86,28 @@ class ContentAddAndEdit extends React.Component {
 
   submitForm = async (e) => {
     e.preventDefault()
-    try {
-      const token = this.props.user.token
-      const { data: content } = await axios.put(`${BACKEND_URL}/blog`, {
-        ...this.state.content
-      }, {
-        headers: {
-          'access-token': token
-        }
-      })
-      console.log('content ->', content)
-      window.alert('Content has been updated.')
-    } catch (e) {
-      console.error('e ->', e)
-      window.alert('Something went wrong!')
-    }
+    console.log('111')
+    // try {
+    //   const token = this.props.user.token
+    //   const { data: content } = await axios.put(`${config.backendUrl}/blog`, {
+    //     ...this.state.content
+    //   }, {
+    //     headers: {
+    //       'access-token': token
+    //     }
+    //   })
+    //   console.log('content ->', content)
+    //   window.alert('Content has been updated.')
+    // } catch (e) {
+    //   console.error('e ->', e)
+    //   window.alert('Something went wrong!')
+    // }
   }
 
   render () {
     const { content } = this.state
+
+    const submitButtonLabel = content.isNew ? 'Create new' : 'Update'
 
     return (
       <Main title={content.title}>
@@ -146,9 +149,12 @@ class ContentAddAndEdit extends React.Component {
                 <TextEditor detail={content.detail} handleDetail={this.handleDetail} />
               </div>
             </div>
-            <button type="submit" className="btn btn-primary">Update</button>
+            <button type="submit" className="btn btn-primary btn-sm">{ submitButtonLabel }</button>
+            <Link route="/content"><a href="/content" className="btn btn-link btn-sm">Discard</a></Link>
           </form>
         </div>
+        <hr />
+        {/* <CloudinaryFinder /> */}
       </Main>
     )
   }

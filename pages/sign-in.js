@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Main from '../layouts/main'
 import isLoading from '../lib/loading'
 import { loginSuccess } from '../store'
+import config from '../config'
 
 class SignIn extends React.Component {
   static async getInitialProps({ query }) {
@@ -36,12 +37,11 @@ class SignIn extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault()
     isLoading(true)
-    const { BACKEND_URL } = process.env
     const { username, password } = this.state
     const { query } = this.props
 
     try {
-      const response = await axios.post(`${BACKEND_URL}/sign-in`, {
+      const response = await axios.post(`${config.backendUrl}/sign-in`, {
         username,
         password
       })

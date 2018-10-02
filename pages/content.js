@@ -5,6 +5,7 @@ import Main from '../layouts/main'
 import Paginate from '../components/Paginate'
 import { Link } from '../routes'
 import { isLoggedIn } from '../lib/auth'
+import config from '../config'
 
 class ContentMain extends React.Component {
   static async getInitialProps ({ asPath, query }) {
@@ -27,8 +28,7 @@ class ContentMain extends React.Component {
   }
 
   getContens = async (page = 1) => {
-    const { BACKEND_URL } = process.env
-    const { data: contents } = await axios.get(`${BACKEND_URL}/blog?page=${page}`)
+    const { data: contents } = await axios.get(`${config.backendUrl}/blog?page=${page}`)
 
     this.setState({
       contents
@@ -62,6 +62,8 @@ class ContentMain extends React.Component {
       <Main title={this.state.title}>
         <div className="container margin-top-20">
           <h1>All Contents</h1>
+          <Link route={`/content/add`}><a className="btn btn-primary btn-sm"><i className="fas fa-plus"></i> Add new</a></Link>
+          <hr />
           <Paginate url={'content'} page={contents.page} pages={contents.pages} onClickAction={this.getContens} />
           <table className="table table-hover">
             <thead>

@@ -3,14 +3,14 @@ import { Link } from '../routes'
 import Main from '../layouts/main'
 import axios from 'axios'
 import timeago from 'timeago.js'
+import config from '../config'
 
 export default class BlogDetail extends React.Component {
   static async getInitialProps(props) {
-    const { BACKEND_URL } = process.env
     const { query } = props
     const { objectId } = query
 
-    const response = await axios.get(`${BACKEND_URL}/blog/${objectId}`)
+    const response = await axios.get(`${config.backendUrl}/blog/${objectId}`)
     const content = response.data
 
     return { query, content }

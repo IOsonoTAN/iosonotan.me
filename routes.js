@@ -9,4 +9,5 @@ routes
   .add('contact-me')
   .add('resume')
   .add('content')
-  .add('/content/:objectId/edit', 'content-edit')
+  .add('/content/add', 'content-add-edit')
+  .add('/content/:objectId/edit', 'content-add-edit')

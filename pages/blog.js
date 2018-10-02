@@ -6,6 +6,7 @@ import Main from '../layouts/main'
 import ErrorPage from '../layouts/error'
 import Paginate from '../components/Paginate'
 import { axiosResponseError } from '../lib/handle-error'
+import config from '../config'
 
 const generateCurrentUrl = ({ category, tag }) => {
   if (category) {
@@ -19,7 +20,6 @@ const generateCurrentUrl = ({ category, tag }) => {
 
 class Blog extends React.Component {
   static async getInitialProps({ query }) {
-    const { BACKEND_URL } = process.env
     const page = query.page || 1
     const category = query.category
     const tag = query.tag
@@ -31,7 +31,7 @@ class Blog extends React.Component {
     const currentUrl = generateCurrentUrl({ category, tag })
 
     try {
-      const response = await axios.get(`${BACKEND_URL}/blog?${requestQuerystring}`)
+      const response = await axios.get(`${config.backendUrl}/blog?${requestQuerystring}`)
       const contents = response.data
 
       return { contents, page, currentUrl, category, tag }

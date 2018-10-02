@@ -5,36 +5,42 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
+const actualPages = {
+  blog: '/blog',
+  blogDetail: '/blog-detail',
+  contentAddEdit: '/content-add-edit',
+}
+
 app.prepare()
 .then(() => {
   const server = express()
 
   server.get('/blog/:objectId', (req, res) => {
-    const actualPage = '/blog-detail'
     const queryParams = { objectId: req.params.objectId }
 
-    app.render(req, res, actualPage, queryParams)
+    app.render(req, res, actualPages.blogDetail, queryParams)
   })
 
   server.get('/blog/category/:category', (req, res) => {
-    const actualPage = '/blog'
     const queryParams = { category: req.params.category }
 
-    app.render(req, res, actualPage, queryParams)
+    app.render(req, res, actualPages.blog, queryParams)
   })
 
   server.get('/blog/tag/:tag', (req, res) => {
-    const actualPage = '/blog'
     const queryParams = { tag: req.params.tag }
 
-    app.render(req, res, actualPage, queryParams)
+    app.render(req, res, actualPages.blog, queryParams)
+  })
+
+  server.get('/content/add', (req, res) => {
+    app.render(req, res, actualPages.contentAddEdit, {})
   })
 
   server.get('/content/:objectId/edit', (req, res) => {
-    const actualPage = '/content-edit'
     const queryParams = { objectId: req.params.objectId }
 
-    app.render(req, res, actualPage, queryParams)
+    app.render(req, res, actualPages.contentAddEdit, queryParams)
   })
 
   server.get('*', (req, res) => {
@@ -43,7 +49,7 @@ app.prepare()
 
   server.listen(3000, (err) => {
     if (err) throw err
-    console.log('> Ready on http://localhost:3000')
+    console.log('> Ready on http://{localhost}:3000')
   })
 })
 .catch((ex) => {
